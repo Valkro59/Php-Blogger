@@ -3,7 +3,7 @@
 //login.php
 
 require 'init.php';
-
+require LIB_PATH . DS . 'user.php';
 
 // echo password_hash(0101, PASSWORD_BCRYPT); // Crypter un mot de passe
 
@@ -13,13 +13,14 @@ require 'init.php';
 
 
 $username= $_POST['username'] ?? null;
-$username= $_POST['password'] ?? null;
+$password= $_POST['password'] ?? null;
 
 
 
 // Validation du formulaire
 if($_SERVER['REQUEST_METHOD']==='POST'){
-
+    $user = authenticate($db, $username, $password);
+    var_dump($user);
 
 }
 
