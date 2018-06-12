@@ -17,7 +17,7 @@ define('DB_PASS', '');
 define('APP_NAME', 'Aston');
 define('THEME','default');
 define('THEME_PATH', VIEWS_PATH . DS . THEME);
-define('BASE_URL','/blogger');
+define('BASE_URL','/Php-Blogger');
 
 
 

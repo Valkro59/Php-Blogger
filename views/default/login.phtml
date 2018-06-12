@@ -6,9 +6,17 @@
 
 
 
-
     <form class="form-signin text-center" method="POST">
+        <img class="rounded-circle" src="/Php-Blogger/img/Jack.jpg" width="180px" >
         <h2 class="form-signin-heading">Enregistrer vous ici</h2>
+
+
+        <?php if(!empty($errors)) : ?>
+            <?php foreach ($errors as $error) : ?>
+            <div class="alert alert-danger"><?=$error?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
         <label for="username" class="sr-only">Pseudo</label>
         <input type="text" id="username" name="username" class="form-control" placeholder="Pseudo" required autofocus>
         <label for="password" class="sr-only">Mot de passe</label>
@@ -21,7 +29,6 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
         <p class="mt-5 mb-3 text-muted">&copy;<?= date('Y')?></p>
     </form>
-
 
 
 <?php include THEME_PATH . DS . 'footer.phtml';?>

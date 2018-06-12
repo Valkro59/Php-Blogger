@@ -1,0 +1,80 @@
+<?php include THEME_PATH . DS . 'header.phtml';?>
+
+    <style>
+        <?php include THEME_PATH .DS . 'css' . DS . 'signin.css'; ?>
+    </style>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <img class="rounded-circle" src="/Php-Blogger/img/Jack.jpg" width="180px" >
+        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>Inscription</h2>
+    </div>
+
+
+        <div class="col-md-12 order-md-1">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="zip">Prénom</label>
+                    <input type="text" class="form-control" id="firstname" placeholder="Jack" required>
+                    <div class="invalid-feedback">
+                        Prénom requis.
+                    </div>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="zip">Nom</label>
+                    <input type="text" class="form-control" id="lastname" placeholder="Sparrow" required>
+                    <div class="invalid-feedback">
+                        Nom requis.
+                    </div>
+                </div>
+            </div>
+
+
+                <div class="mb-3">
+                    <label for="username">Pseudonyme</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="username" placeholder="Mon pseudo" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Votre pseudonyme est requis.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email <span class="text-muted"></span></label>
+                    <input type="email" class="form-control" id="email" placeholder="toto@example.com" required>
+                    <div class="invalid-feedback">
+                        Rentrer ici une adresse valide.
+                    </div>
+                </div>
+
+
+
+    <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" class="form-control" id="password" placeholder="CaptainJack2000" required>
+                        <div class="invalid-feedback">
+                            Mot de passe requis.
+                        </div>
+
+                    </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="confirmPassword">Confirmer mot de passe</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="CaptainJack2000" required>
+                            <div class="invalid-feedback">
+                                Mot de passe requis.
+                            </div>
+                        </div>
+    </div>
+        </div>
+    <hr class="mb-4">
+    <button class="btn btn-primary btn-lg btn-block" type="submit">S'enregistrer</button>
+    <p class="mt-5 mb-3 text-muted text-center">&copy;<?= date('Y')?></p>
+
+</div>
+<script src="<?= BASE_URL ?>/views/<?= THEME ?>/js/signup.js"></script>
+<?php include THEME_PATH . DS . 'footer.phtml';?>
