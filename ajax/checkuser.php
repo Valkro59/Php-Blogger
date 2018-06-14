@@ -3,7 +3,15 @@
 require '../init.php';
 require LIB_PATH . DS . 'user.php';
 
-echo 'Hello Ajax World';
+//echo 'Hello Ajax World';
 
+$name=$_GET['name'] ?? '';
+$data = new StdClass();
+$data->hasUser = false;
 
+if (!empty($name)) {
+$data->hasUser = isUserExists($db, $name);
+}
+header('Content-Type: application/json');
+echo json_encode($data);
 

@@ -1,9 +1,24 @@
-<div class="card"> <!-- syntaxe vient de bootstrap/ documentation / component / cards -->
+<div class="card mb-2"> <!-- syntaxe vient de bootstrap/ documentation / component / cards -->
     <div class="card-header">
-        Ecrit le <?= $article['created_at']; ?>
+        <?php if ($article['status']) : ?>
+        <span class="badge badge-success float-right">Public</span>
+        <?php else : ?>
+        <span class="badge badge-warning float-right">Privé</span>
+        <?php endif; ?>
+        <a href="mailto:<?= $article['email'];?>"><?= $article['username'];?></a> a écrit le <?=(new DateTime($article['created_at']))->format('d/m/y à H:i'); ?>
     </div>
     <div class="card-body">
         <h5 class="card-title"><?= $article['title']; ?></h5>
+        <?php if (isset($_SESSION['user']) && $_SESSION['user']['user_id'] == $article['user_id']) : ?>
+        <?php if (isset($article['categories'])) : ?>
+        <?php $categories = explode(',', $article['categories']); ?>
+        <div>
+        <?php foreach ($categories as $category) : ?>
+        <span class="badge badge-secondary"><?= $category ?></span>
+        <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+        <?php endif; ?>
         <p class="card-text"><?= $article['teaser']; ?></p>
         <a href="#" class="btn btn-primary">Read more</a>
     </div>

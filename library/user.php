@@ -2,6 +2,12 @@
 
 //user.php
 
+function hasSession() {
+    if (!isset($_SESSION['user'])) {
+        header('Location: login.php');
+        exit;
+    }
+}
 
 function authenticate(PDO $pdo, $username, $password)
 {
@@ -24,17 +30,24 @@ function authenticate(PDO $pdo, $username, $password)
     return false;
 }
 
-function createUser(PDO $pdo, $username, $email, $password, $firstname, $lastname ){
-    $today = date("Y-m-d H:i:s");
+function signup(PDO $pdo, $username, $email, $password, $firstname, $lastname ){
+    //$today = date("Y-m-d H:i:s");
 
-    $sql = 'INSERT INTO user(username, email, password, firstname, lastname, created_at  ) VALUES (
-?,?,?,?,?,?)';
+    $sql = 'INSERT INTO user VALUES (NULL, :username, :email, :pass, :firstname, :lastname, :createdAt)';
     $stmt = $pdo->prepare($sql);
 
-    if ($stmt->execute(array($username, $email, password_hash($password,PASSWORD_BCRYPT), $firstname, $lastname, $today))) {
-        $isok = $stmt->rowCount();
-        return $isok;
+    $data = [
+        'username' => $username,
+        'email' => $email,
+        'pass' =>password_hash($password, PASSWORD_BCRYPT),
+        'firstname' => $firstname,
+        'lastname' => $lastname,
+        'createdAt' => date('Y-m-d H:i:s')
+    ];
+    if ($stmt->execute($data)) {
+        return $stmt->rowcount();
     }
+    return 0;
 }
 
 function isUserExists($pdo, $username){

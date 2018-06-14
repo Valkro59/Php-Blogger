@@ -2,7 +2,7 @@
 
 require 'init.php';
 require LIB_PATH . DS . 'user.php';
-
+require LIB_PATH . DS . 'validator.php';
 
 
 
@@ -13,35 +13,38 @@ $lastname = $_POST['lastname'] ?? null;
 $username= $_POST['username'] ?? null;
 $email= $_POST['email'] ?? null;
 $password= $_POST['password'] ?? null;
-$confirmPassword= $_POST['password'] ?? null;
-
-if ($firstname === null){$errors[] = 'Prenom non rempli';}
-if ($lastname === null){$errors[] = 'Nom non rempli';}
-if ($username === null){$errors[] = 'Pseudo non rempli';}
-if ($email === null){$errors[] = 'Email non rempli';}
-if ($password === null){$errors[] = 'Mot de passe non rempli';}
-if ($confirmPassword !== $password){$errors[] = 'Mot de passe non confirmé';}
-
-if(empty($errors)){
-    $user = createUser($db, $firstname, $lastname, $username, $username, $password);
-    if ($user = 1){
-        echo 'ok';
-    } else {
-        echo 'Le pseudonyme est déjà attribué';
-    }
-}
-
-
+$confirmPassword= $_POST['confirmPassword'] ?? null;
 
 
 // Validation du formulaire
 if($_SERVER['REQUEST_METHOD']==='POST'){
-    $user = createUser($db, $firstname, $lastname, $username, $email, $password);
-    if($user)  {
-        $_SESSION['user'] = $user;
-        header('Location: index.php');
-    } else {
-        $errors[] = 'Formulaire d\'inscription non rempli correctement';
+
+    if (!validUsername($username,3,12)) {
+        $errors[]='Identifiant incorrect';
+    }
+
+    if (!validEmail($email)) {
+        $errors[]='Email incorrect';
+    }
+    if (!validPassword($password, $confirmPassword)) {
+        $errors[]='Mot de passe invalide ou ne correspond pas';
+    }
+    if (empty($errors)) {
+
+        //Nettoyage des données
+        $username = strip_tags($username);
+        $email= strip_tags($email);
+        $password= strip_tags($password);
+
+        if (signup($db,$username, $email, $password, $firstname, $lastname) === 1){
+        // echo $db->lastInsertId();
+            $user = authenticate($db, $username, $password);
+
+            if($user){
+                $_SESSION['user'] = $user;
+             header('location: index.php');
+            }
+        }
     }
 }
 //Affichage de la vue

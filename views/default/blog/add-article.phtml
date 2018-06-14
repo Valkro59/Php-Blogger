@@ -1,0 +1,64 @@
+<?php include THEME_PATH . DS . 'header.phtml';?>
+<?php include THEME_PATH . DS . 'navbar.phtml';?>
+<style>
+    <?php include THEME_PATH .DS . 'css' . DS . 'add-article.css'; ?>
+</style>
+
+    <div class="container">
+        <form method="post" class="needs-validation" novalidate>
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+                <h2>Nouvel article</h2>
+            </div>
+
+
+            <div class="col-md-12 order-md-1">
+                <div class="col-md-12 mb-3">
+                    <label for="title">Titre</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Mon titre" value="<?= $title; ?>" required>
+
+
+                </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label for="teaser">Présentation de l'article</label>
+                        <textarea  cols="20" rows="4" type="textarea" class="form-control" name="teaser" id="teaser" placeholder="Ma présentation" required><?= $teaser; ?></textarea>
+
+                    </div>
+
+
+                <div class="col-md-12 mb-3">
+                    <label for="content">Contenu</label>
+                    <div class="input-group ">
+                        <textarea  cols="30" rows="10" type="textarea" class="form-control" name="content" id="content" placeholder="Mon contenu d'article" required><?= $content; ?></textarea>
+
+                    </div>
+
+
+                </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="category">Catégorie de l'article</label>
+                        <select class="form-control" name="categories[]" id="categories" multiple>
+                            <?php foreach ($categories as $cat) : ?>
+                            <?php $selected = in_array($cat['category_id'], $inputCats) ? ' selected' : ''; ?>
+                                <option <?= $selected ?> value="<?= $cat['category_id'];?>"><?= $cat['name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" name="status" id="status" <?= $status ? 'checked' : '' ?>/>
+                            <label class="custom-control-label" for="status">Publier</label>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Ajouter</button>
+
+            <p class="mt-5 mb-3 text-muted text-center">&copy;<?= date('Y')?></p>
+        </form>
+    </div>
+    <script src=""></script>
+<?php include THEME_PATH . DS . 'footer.phtml';?>

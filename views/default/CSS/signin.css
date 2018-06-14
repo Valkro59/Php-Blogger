@@ -1,13 +1,16 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #eee;
+    background-image: url("https://images3.alphacoders.com/842/thumb-1920-842965.jpg");
+    background-size: cover;
+    color: #FFFFFF;
 }
 
 .form-signin {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
+
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
